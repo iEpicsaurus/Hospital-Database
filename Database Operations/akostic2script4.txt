@@ -1,0 +1,21 @@
+USE akostic2assign2db;
+
+DELETE FROM doctor WHERE datelicensed < "1965-01-01";
+-- NOTE: this command will not work because two doctors would be affected; however, they are head doctors and thus an error is caused.
+SELECT * FROM doctor;
+
+SELECT * FROM hospital;
+DROP VIEW IF EXISTS patientheaddocs;
+CREATE VIEW patientheaddocs AS SELECT patient.firstname, patient.lastname AS plastname, doctor.lastname AS dlastname, hospital.hospitalname FROM treats, doctor, hospital, patient WHERE treats.patientid=patient.ohipno AND treats.doctorid=doctor.licenseno AND hospital.startdate > "1995-12-31" AND hospital.headdoctor=doctor.licenseno;
+SELECT * FROM patientheaddocs;
+
+SELECT * FROM doctor;
+SELECT * FROM treats;
+DELETE FROM doctor WHERE lastname="Clooney";
+SELECT * FROM doctor;
+SELECT * FROM treats;
+
+SELECT * FROM doctor;
+DELETE FROM doctor WHERE specialty="Surgeon";
+-- NOTE: this command will not work because one of the surgeons is a head doctor and thus and error is caused.
+SELECT * FROM doctor; 

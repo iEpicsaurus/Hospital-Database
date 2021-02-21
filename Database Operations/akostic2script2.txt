@@ -1,0 +1,57 @@
+USE akostic2assign2db;
+
+SELECT * FROM patient;
+LOAD DATA LOCAL INFILE 'loaddatafall2019.txt' INTO TABLE patient FIELDS TERMINATED BY ',';
+SELECT * FROM patient;
+
+INSERT INTO patient VALUES (832893211,"Aleksandar","Kostic");
+SELECT * FROM patient;
+
+SELECT * FROM doctor;
+INSERT INTO doctor VALUES ("Bernie","Kavorikian","RD34","1980-09-09","Urologist",NULL);
+INSERT INTO doctor VALUES ("Joey","Shabado","GD56","1960-06-24","Podiatrist",NULL);
+INSERT INTO doctor VALUES ("Ross","Clooney","HT45","1987-06-20","Surgeon",NULL);
+INSERT INTO doctor VALUES ("Ben","Spock","YT67","1955-02-20","Pediatrician",NULL);
+INSERT INTO doctor VALUES ("Mandy","Webster","JK78","1990-08-08","Surgeon",NULL);
+INSERT INTO doctor VALUES ("Colleen","Aziz","SE66","1989-08-24","Surgeon",NULL);
+INSERT INTO doctor VALUES ("Meredith","Grey","MG13","2005-03-25","Surgeon",NULL);
+SELECT * FROM doctor;
+
+SELECT * FROM hospital;
+INSERT INTO hospital VALUES ("BBC","St. Joeseph","London","ON",1000,"GD56","1999-09-10");
+INSERT INTO hospital VALUES ("ABC","Victoria","London","ON",1600,"SE66","1994-12-05");
+INSERT INTO hospital VALUES ("DDE","Victoria","Victoria","BC",1200,"YT67","1997-12-07");
+SELECT * FROM hospital;
+
+SELECT * FROM treats;
+INSERT INTO treats VALUES (110112113,"GD56");
+INSERT INTO treats VALUES (444555666,"HT45");
+INSERT INTO treats VALUES (444555666,"JK78");
+INSERT INTO treats VALUES (111222333,"SE66");
+INSERT INTO treats VALUES (111222333,"YT67");
+INSERT INTO treats VALUES (111222333,"JK78");
+INSERT INTO treats VALUES (333444555,"GD56");
+INSERT INTO treats VALUES (667766777,"YT67");
+INSERT INTO treats VALUES (667766777,"JK78");
+INSERT INTO treats VALUES (667766777,"GD56");
+INSERT INTO treats VALUES (111222111,"YT67");
+INSERT INTO treats VALUES (832893211,"MG13");
+SELECT * FROM treats;
+
+SELECT * FROM doctor;
+UPDATE doctor SET hospworksat="BBC" WHERE licenseno="RD34";
+UPDATE doctor SET hospworksat="BBC" WHERE licenseno="GD56";
+UPDATE doctor SET hospworksat="DDE" WHERE licenseno="HT45";
+UPDATE doctor SET hospworksat="DDE" WHERE licenseno="YT67";
+UPDATE doctor SET hospworksat="BBC" WHERE licenseno="JK78";
+UPDATE doctor SET hospworksat="ABC" WHERE licenseno="SE66";
+UPDATE doctor SET hospworksat="ABC" WHERE licenseno="MG13";
+SELECT * FROM doctor;
+
+SELECT * FROM patient;
+UPDATE patient SET lastname="Brown" WHERE ohipno="111222111";
+SELECT * FROM patient;
+
+SELECT * FROM treats;
+UPDATE treats SET doctorid = (SELECT licenseno FROM doctor WHERE lastname="Clooney") WHERE doctorid IN(SELECT licenseno FROM doctor WHERE lastname="Spock");
+SELECT * FROM treats;

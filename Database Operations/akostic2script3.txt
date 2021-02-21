@@ -1,0 +1,42 @@
+USE akostic2assign2db;
+
+-- Query 1
+SELECT lastname FROM patient;
+
+-- Query 2
+SELECT DISTINCT lastname FROM patient;
+
+-- Query 3
+SELECT * FROM doctor ORDER BY lastname ASC;
+
+-- Query 4
+SELECT hospitalname, hospitalcode FROM hospital WHERE numbeds>1500;
+
+-- Query 5
+SELECT lastname, firstname FROM doctor WHERE hospworksat IN(SELECT hospitalcode FROM hospital WHERE hospitalname="St. Joeseph");
+
+-- Query 6
+SELECT firstname, lastname FROM patient WHERE lastname LIKE "G%";
+
+-- Query 7
+SELECT DISTINCT patient.firstname, patient.lastname FROM patient, treats, doctor WHERE treats.patientid=patient.ohipno AND treats.doctorid=doctor.licenseno AND doctor.lastname="Clooney";
+
+-- Query 8
+SELECT hospitalname, city, lastname FROM hospital, doctor WHERE hospital.headdoctor=doctor.licenseno;
+
+-- Query 9
+SELECT SUM(numbeds) AS "Total Number of Beds" FROM hospital;
+
+-- Query 10
+SELECT patient.firstname, doctor.firstname FROM  treats, doctor, hospital, patient WHERE treats.patientid=patient.ohipno AND treats.doctorid=doctor.licenseno AND hospital.headdoctor=doctor.licenseno;
+
+-- Query 11
+DROP VIEW IF EXISTS surgeons;
+CREATE VIEW surgeons AS SELECT lastname, firstname, hospworksat, specialty FROM doctor WHERE specialty="Surgeon";
+SELECT lastname, firstname FROM surgeons WHERE hospworksat IN(SELECT hospitalcode FROM hospital WHERE hospitalname="Victoria");
+
+-- Query 12
+SELECT firstname FROM doctor WHERE licenseno NOT IN(SELECT doctorid FROM treats);
+
+-- Query 13
+SELECT firstname, lastname FROM (treats INNER JOIN doctor ON doctorid=licenseno) GROUP BY doctorid HAVING COUNT(doctorid) > 1; 

@@ -1,0 +1,23 @@
+SHOW DATABASES;
+DROP DATABASE IF EXISTS akostic2assign2db;
+CREATE DATABASE akostic2assign2db;
+USE akostic2assign2db;
+
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+
+SHOW TABLES;
+
+CREATE TABLE patient(ohipno INT(9), firstname VARCHAR(20), lastname VARCHAR(20), PRIMARY KEY (ohipno));
+CREATE TABLE doctor(firstname VARCHAR(20), lastname VARCHAR(20), licenseno CHAR(4), datelicensed DATE, specialty VARCHAR(30), hospworksat CHAR(3), PRIMARY KEY(licenseno));
+CREATE TABLE hospital(hospitalcode CHAR(3), hospitalname VARCHAR(20), city VARCHAR(20), province CHAR(2), numbeds INT, headdoctor CHAR(4), startdate DATE,  PRIMARY KEY(hospitalcode));
+
+ALTER TABLE doctor ADD FOREIGN KEY (hospworksat) REFERENCES hospital(hospitalcode);
+ALTER TABLE hospital ADD FOREIGN KEY (headdoctor) REFERENCES doctor(licenseno) ON DELETE RESTRICT;
+
+CREATE TABLE treats(patientid INT(9), doctorid CHAR(4), PRIMARY KEY (patientid, doctorid), FOREIGN KEY (patientid) REFERENCES patient(ohipno), FOREIGN KEY (doctorid) REFERENCES doctor(licenseno) ON DELETE CASCADE);
+
+SHOW TABLES;

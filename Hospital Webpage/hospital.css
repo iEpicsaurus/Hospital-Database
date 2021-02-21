@@ -1,0 +1,44 @@
+/* Created by Aleksandar Kostic on 28 November 2019 for 3319a - CSS file */
+
+* {
+
+	background-color: #fbfcff;
+
+}
+
+body { 
+
+	color: #2a2b2e;
+	font-size: 16px;
+
+}
+
+h1, h2 {
+	
+	color: #465775;
+
+}
+
+footer, header {
+
+	background-color: #465775;
+	padding: 0.5em 0;
+	color: white;
+
+}
+
+header h1 {
+
+	background-color: #465775;
+	color: white;
+	padding: 0.5em 0;
+
+}
+
+footer p {
+
+	text-align: center;
+	font-size: 14px;
+	background-color: #465775;
+
+}
