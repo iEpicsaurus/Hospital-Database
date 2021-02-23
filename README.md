@@ -6,5 +6,5 @@ Database Operations
 - Scripts contain output for verification purposes.
 
 Hospital Webpage
-- Contains the front-end implementation of the hospital webpage using HTML, CSS, Javascript, SQL, and PHP.
+- Contains the front-end implementation of the hospital webpage using HTML, CSS, SQL, and PHP.
 - Database is queried using PHP.
